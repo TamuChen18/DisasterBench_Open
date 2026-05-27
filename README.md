@@ -195,23 +195,6 @@ DisasterBench/
 
 ---
 
-## 👥 Authors
-
-- **Zhitong Chen*** — Texas A&M University  
-- **Kai Yin*** — Texas A&M University  
-- **Weifeng Zhang** — Texas A&M University  
-- **Zhiyuan Wang** — Texas A&M University  
-- **Xiangjue Dong** — Texas A&M University  
-- **Chengkai Liu** — Texas A&M University  
-- **Zhewei Liu** — University of Toronto  
-- **Yiming Xiao** — Texas A&M University  
-- **Ali Mostafavi** — Texas A&M University  
-- **James Caverlee** — Texas A&M University  
-
-\* Equal contribution
-
----
-
 ## 📜 Citation
 
 ```bibtex
@@ -226,7 +209,7 @@ DisasterBench/
 
 ## 🙌 Acknowledgments
 
-This work was developed through collaborations across AI, disaster resilience, and information retrieval research communities at Texas A&M University and the University of Toronto.
+This work was developed through collaborations across AI, disaster resilience, and information retrieval research communities.
 
 ---
 
