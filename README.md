@@ -201,7 +201,7 @@ DisasterBench/
 @misc{disasterbench2026,
   title={DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints},
   author  = {Anonymous Authors},
-  year={2026},
+  year=  {2026},
   note    = {Under Review}
 }
 ```
