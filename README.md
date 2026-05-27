@@ -195,26 +195,40 @@ DisasterBench/
 
 ---
 
+## 👥 Authors
+
+- **Zhitong Chen*** — Texas A&M University  
+- **Kai Yin*** — Texas A&M University  
+- **Weifeng Zhang** — Texas A&M University  
+- **Zhiyuan Wang** — Texas A&M University  
+- **Xiangjue Dong** — Texas A&M University  
+- **Chengkai Liu** — Texas A&M University  
+- **Zhewei Liu** — University of Toronto  
+- **Yiming Xiao** — Texas A&M University  
+- **Ali Mostafavi** — Texas A&M University  
+- **James Caverlee** — Texas A&M University  
+
+\* Equal contribution
+
+---
+
 ## 📜 Citation
 
 ```bibtex
-@misc{disasterbench2026,
+@misc{chen2026disasterbench,
   title={DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints},
-  author  = {Anonymous Authors},
-  year=  {2026},
-  note    = {Under Review}
+  author={Chen, Zhitong and Yin, Kai and Zhang, Weifeng and Wang, Zhiyuan and Dong, Xiangjue and Liu, Chengkai and Liu, Zhewei and Xiao, Yiming and Mostafavi, Ali and Caverlee, James},
+  year={2026}
 }
 ```
 
 ---
----
 
 ## 🙌 Acknowledgments
 
-This benchmark was developed by an academic research team in collaboration with disaster resilience and information retrieval experts. We thank all annotators for their rigorous contributions.
+This work was developed through collaborations across AI, disaster resilience, and information retrieval research communities at Texas A&M University and the University of Toronto.
 
 ---
-
 
 ## 📄 License
 
