@@ -200,11 +200,21 @@ DisasterBench/
 ```bibtex
 @misc{disasterbench2026,
   title={DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints},
-  year={2026}
+  author  = {Anonymous Authors},
+  year={2026},
+  note    = {Under Review}
 }
 ```
 
 ---
+---
+
+## 🙌 Acknowledgments
+
+This benchmark was developed by an academic research team in collaboration with disaster resilience and information retrieval experts. We thank all annotators for their rigorous contributions.
+
+---
+
 
 ## 📄 License
 
