@@ -206,6 +206,9 @@ DisasterBench/
 ```
 
 ---
+## 🤗 Hugging Face Dataset
+
+https://huggingface.co/datasets/tamuzc/DisasterBench
 
 ## 🙌 Acknowledgments
 
