@@ -1,0 +1,36 @@
+# Secrets
+.env
+.env.*
+
+# Run outputs
+results/
+logs/
+artifacts/
+outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Internal analysis (do not commit to public repo)
+figures/
+fpof_plots/
+depth_accuracy_plots/
+*.log
+agent_semantic_overlap*.json
+partial_credit.csv
+depth_accuracy*.csv
+fpof_distribution*.csv
+SESSION_SUMMARY*.md
+RESULTS_FPOF*.md
+RESULTS_DEPTH*.md
+RESULTS_PARTIAL*.md
+RESULTS_SUMMARY*.md

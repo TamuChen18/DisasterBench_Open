@@ -1,0 +1,18 @@
+# Core (API baselines)
+openai>=1.0.0
+python-dotenv>=1.0.0
+PyYAML>=6.0
+tqdm>=4.65.0
+json-repair>=0.25.0
+
+# Optional: logging (test_baseline runs without wandb if not installed)
+wandb>=0.16.0
+
+# Optional: local / HF models
+# torch>=2.0.0
+# transformers>=4.40.0
+# vllm>=0.4.0
+
+# Optional: structural baselines (TF-IDF)
+# scikit-learn>=1.3.0
+# numpy>=1.24.0

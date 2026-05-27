@@ -1,0 +1,284 @@
+{   
+    "Temporal_High_Resolution_Image_Generation": {
+        "desc": "Generates a high resolution image with temporal features: given a low-res and high-res image of a location at time T, and a low-res image of the same location at time T', generate a high-res image of the location at time T'.",
+        "input": {
+          "low_res_image_T_path": "The path of Low-resolution satellite image at time T.",
+          "high_res_image_T_path": "The path of High-resolution satellite image at time T.",
+          "low_res_image_T_prime_path": "The path of Low-resolution satellite image at time T'.",
+          "metadata_path": "The path of Metadata associated with the satellite images, including latitude, longitude, ground sampling distance (GSD), cloud cover fraction, year, month, and day."
+        },
+        "output": {
+          "high_res_image_T_prime_path": "Path to the generated high-resolution image of the area after the disaster, which can be used for anomaly detection."
+        }
+    },   
+
+    "High-Resolution_Image_Reconstructor": {
+        "desc": "Enhances low-resolution multi-spectral satellite images to high-resolution RGB format using metadata. Utilizes metadata embedding techniques and latent diffusion processes. That is: given a multi-spectral low-res image of a location, generate the corresponding high-res RGB image.",
+        "input": {
+            "image_path": "Path to the low-resolution multi-spectral image to be enhanced.",
+            "metadata_path": "The path of the metadata vector providing contextual details for the satellite image."
+        },
+        "output": {
+            "high_resolution_image_path": "Path to the generated high-resolution RGB image, which is used for downstream tasks such as anomaly detection and segmentation."
+        }
+    },  
+
+    "Metadata_and_Text_Prompt_Image_Generation": {
+        "desc": "Generates single satellite image based on textual and metadata inputs. Optimized for tasks that include generating realistic satellite imagery conditioned on data such as geolocation (latitude and longitude), timestamps, and other satellite-specific metadata. This checkpoint enables tasks such as: Image generation based on metadata and/or textual prompts: The model can synthesize satellite images with specific geographical, temporal, or visual characteristics. Enhanced flexibility for missing inputs: If textual prompts are unavailable, the model can rely on metadata for generating plausible imagery. This is used to create initial images for disaster assessment and response planning.",
+        "input": {
+            "caption_path": "Path to a text file containing the descriptive caption that provides context for the image to be generated.",
+            "metadata_path": "The path of the normalized numerical metadata vector providing additional contextual information to guide the image generation."
+        },
+        "output": {
+            "generated_image_path": "The path of the generated satellite image based on the provided caption and metadata. This can be further used by other agents."
+        }
+    },
+    
+    "Temporal_Image_Sequence_Classifier": {
+        "desc": "Classifies the type of disaster and generates a detailed report on damage levels and changes over time by analyzing a temporal sequence of satellite images. Its purpose is to classify sequences of satellite images into predefined categories based on their spatial and temporal visual features. The model leverages both the temporal context across the image sequences and the spatial details within individual images to enhance classification accuracy.",
+        "input": {
+            "image_sequence_path": "The path of a temporal sequence of satellite image."
+        },
+        "output": {
+            "classification_results_path": "The path of the classification result for the entire temporal sequence."
+        }
+    },
+
+    "RGB_GeoImage_Classifier": {
+        "desc": "Identifies and classifies visible features or objects in a high-resolution RGB satellite image. Predicts the category of a single satellite image based on visual features extracted from the image. It is optimized for applications requiring precise identification and categorization of objects or features visible in individual images.",
+        "input": {
+            "image_path": "The path of the main RGB input satellite image containing the area of interest."
+        },
+        "output": {
+            "predicted_category_path": "Path to the output file containing the predicted categories of the image, which can be used for generating detailed descriptions."
+        }
+    },
+
+    "Multi_Spectral_Classifier": {
+        "desc": "Classifies and categorizes areas affected by a natural disaster using multi-spectral satellite imagery and a binary mask. Processes multi-spectral satellite images and outputs the most likely classification label based on the patterns and features it has learned. This model is intended to identify and classify objects or scenes within the input satellite imagery into predefined categories.",
+        "input": {
+            "image_path": "The path of the main satellite image containing 10 specific spectral bands from Sentinel-2 (excluding B1, B9, and B10).",
+            "mask_path": "The path of the binary mask array specifying which regions of the satellite image are visible (value 0) or masked (value 1) during the inference process."
+        },
+        "output": {
+            "reconstructed_image_path": "The path of the reconstructed version of the input satellite image where the masked regions have been in-painted using the context from visible regions.",
+            "feature_representation_path": "The path of the optional output representing the extracted high-level features of the input image in a latent space."
+        }
+    },
+
+    "Anomaly_Detection_Forest": {
+        "desc": "Detects and maps anomalies in a forested environment from high-resolution satellite images. It operates by analyzing the input image to detect patterns that deviate from the defined normal forest pattern. It is used to assess the impact of disasters such as wildfires by identifying damaged trees, fallen structures, or other disruptions.",
+        "input": {
+            "image_path": "Path to a high-resolution satellite image, representing a forest area."
+        },
+        "output": {
+            "anomaly_map_path": "The path of the output anomaly map highlighting areas that deviate from the typical forest pattern."
+        }
+    },
+
+    "Landslide_Segmentation": {
+        "desc": "Identifies and highlights areas prone to landslides using remote sensing imagery. When used for inference, the model identifies and highlights landslide-prone or landslide-affected areas by detecting deviations from the typical patterns of undisturbed mountain terrain. The output is an anomaly map where each pixel is assigned a value indicating the degree to which it represents a potential landslide anomaly. It detects and highlights regions that show signs of landslide anomalies to help with risk assessment and disaster management in mountainous regions.",
+        "input": {
+            "image_path": "Path to a high-resolution aerial or satellite image of mountainous terrain. This can be a reconstructed high-resolution image from a previous step."
+        },
+        "output": {
+            "anomaly_map_path": "A map or segmented image highlighting landslide-prone areas or anomalies, which is used for scene interpretation."
+        }
+    },
+
+    "Urban_Anomaly_Detection": {
+        "desc": "Analyzes high-resolution satellite images of urban areas to detect and classify anomalies or irregularities that may indicate disaster events. The model identifies and highlights areas or objects within urban scenes that deviate from typical urban patterns. The output is an anomaly map where each pixel is assigned a value indicating the likelihood of being an anomaly, helping to localize and analyze irregular or unexpected features within urban settings.",
+        "input": {
+            "image_path": "Path to a high-resolution satellite image of an urban area, taken after any disaster. This can also be a enhanced high-resolution image by other agents."
+        },
+        "output": {
+            "anomaly_map_path": "Path to a map or image highlighting the detected anomalous regions, which can be used for classification or contextual description. Each pixel has a value in the range [0,1]."
+        }
+    },
+
+    "Change_Mapping_and_Detection": {
+        "desc": "Identifies and highlights areas that have undergone significant changes between two sets of satellite images taken before and after a natural disaster. Enables the generation of a change map by identifying and highlighting areas of significant differences between two input images taken at different times. It focuses on detecting changes such as newly constructed buildings, alterations in infrastructure, or other modifications in the landscape, providing clear and accurate outputs to support decision-making in applications like urban monitoring or damage assessment.",
+        "input": {
+            "image_1_path": "The path of the first remote sensing image taken at a specific timestamp, representing a geographical area, taken before the event.",
+            "image_2_path": "The path of the second remote sensing image taken at a later timestamp, representing the same geographical area as Image 1, taken after the event."
+        },
+        "output": {
+            "change_map_path": "The path of the binary change map that indicates regions of change between Image 1 and Image 2."
+        }
+    },
+
+    "Video_anomaly_detection": {
+        "desc": "The model checkpoint is designed for video anomaly detection (WSVAD). This checkpoint enables inference to identify anomalies in video frames, providing anomaly confidence scores at both coarse-grained (general anomaly presence) and fine-grained (specific anomaly category) levels. When using this model for inference, it determines whether frames within a video contain anomalies and categorizes the type of anomaly if applicable. The model is suitable for applications requiring automated video surveillance or content review systems to detect and categorize unusual events efficiently.",
+        "input": {
+            "extracted_video_feature_path": "The path of the extracted feature vectors for each video frame."
+        },
+        "output": {
+            "coarse_grained_anomaly_confidence_path": "The path of the array where each element represents the anomaly confidence score for the corresponding frame.",
+            "fine_grained_anomaly_map_path": "The path of the matrix where each row corresponds to a frame and each column corresponds to an anomaly class from the input text labels."
+        }
+    }, 
+
+    "Post_Disaster_Mobility_Recovery": {
+        "desc": "Analyzes population mobility trends during the recovery phase after a disaster. It specifically models the dynamics of population flows within and between regions (intra-regional and inter-regional flows), helping to capture the interconnected recovery patterns of urban areas after a disaster. This model checkpoint would be used to estimate population mobility trends during the recovery phase, enabling better planning and allocation of resources to facilitate efficient post-disaster recovery.",
+        "input": {
+            "initial_abnormal_population_mobility_graph_path": "The path of the graph object capturing the initial state of abnormal population mobility immediately after the disaster.",
+            "normal_population_mobility_graph_path": "The path of the graph object representing the normal state of population mobility prior to the disaster."
+        },
+        "output": {
+            "predicted_population_mobility_graph_path": "The path of the output graph providing the predicted population mobility for subsequent time steps during the recovery process."
+        }
+    },
+
+    "Foggy_Scenario_Object_Detection": {
+        "desc": "Detects objects under adverse weather conditions, specifically affected by foggy, rainy or hazy conditions. Mitigates weather-related distortions, such as reduced visibility due to fog, to improve object detection performance and identify potential hazards.",
+        "input": {
+            "image_path": "Path to the image captured in foggy conditions. This can be an original image or a restored image from a previous step."
+        },
+        "output": {
+            "detected_objects_path": "Path to the output containing information about the detected objects, which can be used by other agents to generate a detailed contextual description."
+        }
+    },
+
+    "Low-Light_Object_Detection": {
+        "desc": "Detects and identifies objects such as vehicles, debris, or critical infrastructure in images captured under low-light conditions, such as at nighttime or during a power outage. Adaptively processes input images to increase brightness and contrast, revealing details essential for accurate detection. It effectively mitigates the challenges posed by low visibility and ensures reliable identification of objects in dark scenarios.",
+        "input": {
+            "image_path": "Path to the input image captured in low-light conditions."
+        },
+        "output": {
+            "detections_path": "The path of the output list containing detected objects in the image."
+        }
+    },
+
+    "Crowd_Counting_in_Adverse_Weather": {
+        "desc": "Estimates the number of people in crowded areas using satellite images, even under challenging weather conditions like fog, heavy rain, or low visibility. Estimates the density map and crowd count of an input scene by leveraging weather-aware features learned during training. The count helps in prioritizing rescue efforts and resource allocation.",
+        "input": {
+            "image_path": "Path to the primary input image containing a crowd scene. A higher quality image is preferred, but the model can handle images with adverse weather conditions such as rain, haze, or snow."
+        },
+        "output": {
+            "density_map_path": "The path of the generated density map representing the crowd density at each pixel of the input image.",
+            "crowd_count_path": "The path of the total number of individuals in the scene as estimated from the density map."
+        }
+    }, 
+     
+    "Weather_Degraded_Image_Restoration": {
+        "desc": "Restores clarity and detail to satellite images that have been degraded by adverse weather conditions such as rain, snow, haze, or fog. It can be directly used to enhance image clarity and detail under diverse weather-degraded scenarios, making it applicable for tasks like autonomous driving, surveillance, or other computer vision applications requiring high-quality imagery. When used for inference, it processes the input image to remove weather-related degradations and enhance the overall quality of the image, the processed restored image is used in other image classification models.",
+        "input": {
+            "weather_degraded_image_path": "The path of the input image degraded by weather conditions."
+        },
+        "output": {
+            "restored_image_path": "Path to the restored, high-resolution image ready to be used in foggy, rainy, hazey or low-light situations."
+        }
+    }, 
+
+    "Geospatial_Object_Segmentation": {
+        "desc": "The model is used for geospatial object segmentation. Identifies and segments various geospatial objects from high-resolution satellite images, such as ships, airplanes, vehicles, buildings, and natural features. The model is optimized for pixel-level classification to segment these objects effectively within the imagery, addressing challenges like large-scale variations, complex backgrounds, and imbalances between foreground and background. It is designed to provide accurate segmentation results during inference, with emphasis on enhanced foreground detection and reduced false positives. This analysis helps to understand the objects present in an affected area and supports the assessment of a disaster's impact",
+        "input": {
+            "image_path": "Path to a high spatial resolution or high-resolution satellite image for geospatial object segmentation."
+        },
+        "output": {
+            "segmentation_map_image_path": "The map showing the segmented geospatial objects, which can be used for downstream analysis and contextual description."
+        }
+    },
+
+    "Precipitation_Nowcasting": {
+        "desc": "Used for precipitation nowcasting. Forecasts future precipitation patterns by analyzing the evolution of precipitation over time using initial radar echo observations. Produces predictions of precipitation events with improved positional accuracy and realistic detail by leveraging the interplay between these two components.",
+        "input": {
+            "radar_echo_frames_path": "Path to the initial radar echo observations data over time."
+        },
+        "output": {
+            "predicted_radar_echo_frames_path": "Path to the generated predicted radar echo frames, which are suitable for conversion to a time-series format."
+        }
+    },
+
+    "Toponym_Detection": {
+        "desc": "Processes input sentences to identify and extract place names (toponyms) mentioned in the text. It is optimized to recognize the names of geographic locations with high accuracy, making it suitable for applications that involve extracting geospatial references from unstructured text data.",
+        "input": {
+            "sentence": "The input text file containing a single sentence or a batch of sentences in natural language."
+        },
+        "output": {
+            "detected_toponyms_path": "The path of the list of dictionaries, where each dictionary contains details of a detected toponym."
+        }
+    },
+
+    "Multimodal_mobility_prediction_under_events": {
+        "desc": "Predicts changes in transportation demand and supply during a natural disaster event. When using this checkpoint for inference, it generates predictions about spatio-temporal demand and supply for multiple transport modes, explicitly accounting for dynamic interactions between different modes and adapting to event-driven volatility. This makes it suitable for applications such as traffic management, demand forecasting, and mobility service optimization during both routine and disruptive events.",
+        "input": {
+            "mobility_tensor_path": "The path of the historical multimodal mobility data tensor.",
+            "temporal_covariates_path": "Path to a file with auxiliary temporal information such as time-of-day, day-of-week, or holiday features."
+        },
+        "output": {
+            "predicted_mobility_path": "The path of the predicted multimodal mobility data tensor for the next β time steps (β = 8)."
+        }
+    },
+
+    "Building_damage_assessment": {
+        "desc": "Assesses the damage to buildings after a disaster using high-resolution satellite images captured both before and after the event. The agent can classify the extent of building damage and generate a detailed damage classification map to aid in disaster response and recovery efforts.",
+        "input": {
+          "pre_disaster_image_path": "Path to a high-resolution satellite image of the affected area taken before the disaster.",
+          "post_disaster_image_path": "Path to a high-resolution satellite image of the affected area taken after the disaster."
+        },
+        "output": {
+          "damage_classification_map_path": "The path of the generated detailed damage classification map containing pixel-wise classification of damage levels.",
+          "segmented_buildings_path": "The path of the segmented building mask providing a binary output highlighting the areas classified as buildings in the satellite images."
+        }
+    },
+
+    "Event_detection": {
+        "desc": "The model is a meta-learning framework specifically designed for zero-shot and few-shot event detection. Here's a detailed breakdown of its capabilities: The model can identify event types in scenarios where no labeled examples for the target event types are provided during training. The model is capable of handling tasks with a wide range of event types, making it suitable for domains with diverse events, such as emergency or online trend detection.",
+        "input": {
+            "context": "The path containing the event context text.",
+            "prompt": "The predefined text prompt with placeholders (e.g., 'A <mask> event').",
+            "trigger": "The optional binary vector indicating token importance."
+        },
+        "output": {
+            "event_type_path": "The path of the string representing the predicted event type.",
+            "trigger_positions_path": "The path of the array of integers indicating the positions of detected trigger tokens in the input context.",
+            "confidence_scores_path": "The path of the float value between 0 and 1 indicating the model's confidence in the predicted event type."
+        }
+    },
+
+    "Flood_depth_prediction": {
+        "desc": "Predicts water depths over a region dynamically during flood events using a region's digital elevation model (DEM) and time-series precipitation data, accommodating spatial and temporal variability in rainfall.",
+        "input": {
+            "region_topography_path": "Path of the digital elevation model (DEM) providing the ground elevation data for the geographical region being simulated.",
+            "precipitation_data_path": "The path of the time-series array representing spatially distributed precipitation over time."
+        },
+        "output": {
+            "predicted_water_depths_path": "The path of the time-series array with water depth predictions for each pixel in the region over the simulation period."
+        }
+    },
+    
+    "GeoChat": {
+        "desc": "GeoChat excels in visual question answering, where the text description of the given images will be given based on user query. Generates a detailed contextual description of a scene, including descriptions of geospatial objects, anomalies, or classified areas. The analysis aids in disaster management and supports decision-making for emergency services.",
+        "input": {
+            "image_path": "The path of the input image for processing. The image should be realted to the user query for better quality of responses. The image types can include anomaly maps, damage classification maps, category prediction maps, segmentation maps, etc.",
+            "user_query_path": "The path of the user query which describes the queries user wants the model to ask."
+        },
+        "output": {
+            "contextual_description_path": "The path of the output of the human-readable contextual description of the input image based on the user query, which aids in disaster management and decision-making for emergency services."
+        }
+    },
+
+    "precipitation_data_convert_tool": {
+        "desc": "Convert the predicted precipitation data from A sequence of predicted radar echo frames in 3D array with dimensions [T_out, H, W] (time steps, height, width) to the form of Time-series array with dimensions [T, H, W] (time steps, height, width). So that the precipitation data could be the correct format of input data to Flood_depth_prediction model. The data may be log-transformed and normalized.",
+        "input": {
+            "radar_echo_frames_path": "Path to the input radar echo frames data, which needs to be converted."
+        },
+
+        "output": {
+            "time_series_array_path": "Path to the converted time-series precipitation data converted from input radar echo frames"
+        }
+    },
+
+    "depth_speed_model": {
+        "desc": "Determines how flood depths affect traffic speeds on road networks. It uses flood inundation depth data and a road network to provide insights on potential traffic disruptions and suggest alternative routes.",
+        "input": {
+            "road_network_path": "The path of the road network which needs to calculate its traffic speed after floods.",
+            "flood_depth_path": "Path to the flood inundation depth data, which is the output from 'Flood_depth_prediction'"
+        },
+        
+        "output": {
+            "traffic_speed_path": "The path of the calculated traffic speed after floods"
+        }
+    }
+}

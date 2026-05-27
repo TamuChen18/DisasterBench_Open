@@ -1,0 +1,1080 @@
+{
+    "model_nodes": [
+        {
+            "id": "Temporal_High_Resolution_Image_Generation",
+            "desc": "The model checkpoint trained on Texas Super-resolution is designed for the task: given a low-res and high-res image of a location at time T, and a low-res image of the same location at time T', generate a high-res image of the location at time T'.",
+            "input-type": [
+                "low_res_image_T",
+                "high_res_image_T",
+                "low_res_image_T_prime",
+                "metadata"
+            ],
+            "output-type": [
+                "high_res_image_T_prime",
+                "high_res_image_T"
+            ] 
+        },
+        {
+            "id": "High-Resolution_Image_Reconstructor",
+            "desc": "This model trained on fMoW (Function Map of the World) Superresolution data is designed for the superresolution task, where it generates high-resolution RGB images from low-resolution, multi-spectral inputs. Utilizing metadata embedding techniques and latent diffusion processes. That is: given a multi-spectral low-res image of a location, generate the corresponding high-res RGB image.",
+            "input-type": [
+                "satellite_image",
+                "metadata"
+            ],
+            "output-type": [
+                "high_resolution_image"
+            ]
+        },
+        {
+            "id": "Metadata_and_Text_Prompt_Image_Generation",
+            "desc": "The model checkpoint is primarily designed for generating single high-resolution satellite images based on textual and metadata inputs. This checkpoint is optimized for tasks that include generating realistic satellite imagery conditioned on data such as geolocation (latitude and longitude), timestamps, and other satellite-specific metadata. When used for inference, this checkpoint enables tasks such as: Image generation based on metadata and/or textual prompts: The model can synthesize satellite images with specific geographical, temporal, or visual characteristics. Enhanced flexibility for missing inputs: If textual prompts are unavailable, the model can rely on metadata for generating plausible imagery.",
+            "input-type": [
+                "caption",
+                "metadata"
+            ],
+            "output-type": [
+                "generated_image"
+            ]
+        },
+        {
+            "id": "Temporal_Image_Sequence_Classifier",
+            "desc": "This model trained on fMoW RGB (temporal) data is specifically designed for image-sequence classification tasks where the input consists of co-located temporal satellite image sequences.Its purpose is to classify sequences of satellite images into predefined categories based on their spatial and temporal visual features. The model leverages both the temporal context across the image sequences and the spatial details within individual images to enhance classification accuracy.",
+            "input-type": [
+                "image_sequence",
+                "metadata"
+            ],
+            "output-type": [
+                "classification_results"
+            ]
+        },
+        {
+            "id": "RGB_GeoImage_Classifier",
+            "desc": "This model trained on fMoW RGB (non-temporal) data is designed to perform image classification tasks. When used for inference, this model predicts the category of a single satellite image based on visual features extracted from the image. It is optimized for applications requiring precise identification and categorization of objects or features visible in individual images.",
+            "input-type": [
+                "satellite_image"
+            ],
+            "output-type": [
+                "predicted_category"
+            ]
+        },
+        {
+            "id": "Multi_Spectral_Classifier",
+            "desc": "This model trained on fMoW Sentinel (Multi-spectral) data is designed to predict specific categories or classes associated with satellite imagery. When you use this model for inference, it processes multi-spectral satellite images and outputs the most likely classification label based on the patterns and features it has learned. This model is intended to identify and classify objects or scenes within the input satellite imagery into predefined categories.",
+            "input-type": [
+                "satellite_image",
+                "mask"
+            ],
+            "output-type": [
+                "reconstructed_image",
+                "feature_representation"
+            ]
+        },
+        {
+            "id": "Anomaly_Detection_Forest",
+            "desc": "The model checkpoint trained on Forest Anomaly Segmentation data for anomaly segmentation in forest environments. When used for inference, the model identifies and highlights anomalies in forest imagery. It operates by analyzing the input image to detect patterns that deviate from the defined normal forest pattern. Specifically, it flags anomalies such as man-made structures (e.g., houses), water bodies (e.g., lakes), vehicles (e.g., cars), and signs of forest health issues (e.g., diseased trees). The output is an anomaly map where each pixel is assigned a value indicating the likelihood of being abnormal, enabling precise localization and identification of these deviations.",
+            "input-type": [
+                "image"
+            ],
+            "output-type": [
+                "anomaly_map"
+            ]
+        },
+        {
+            "id": "Landslide_Segmentation",
+            "desc": "The model checkpoint trained on Landslide4Sense data is designed for anomaly segmentation in mountainous environments. When used for inference, the model identifies and highlights landslide-prone or landslide-affected areas by detecting deviations from the typical patterns of undisturbed mountain terrain. The output is an anomaly map where each pixel is assigned a value indicating the degree to which it represents a potential landslide anomaly, facilitating precise localization of affected regions for further analysis or intervention.",
+            "input-type": [
+                "remote_sensing_image"
+            ],
+            "output-type": [
+                "anomaly_map"
+            ]
+        },
+        {
+            "id": "Urban_Anomaly_Detection",
+            "desc": "The model checkpoint trained with Urban land as the normal type is designed for anomaly segmentation in urban environments. When used for inference, the model identifies and highlights areas or objects within urban scenes that deviate from typical urban patterns. The output is an anomaly map where each pixel is assigned a value indicating the likelihood of being an anomaly, helping to localize and analyze irregular or unexpected features within urban settings.",
+            "input-type": [
+                "satellite_image"
+            ],
+            "output-type": [
+                "anomaly_map"
+            ]
+        },
+        {
+            "id": "Change_Mapping_and_Detection",
+            "desc": "The model checkpoint trained on LEVIR-CD data is designed specifically for performing change detection tasks on remote sensing images. When used for inference, this checkpoint enables the generation of a change map by identifying and highlighting areas of significant differences between two input images taken at different times. It focuses on detecting changes such as newly constructed buildings, alterations in infrastructure, or other modifications in the landscape, providing clear and accurate outputs to support decision-making in applications like urban monitoring or damage assessment.",
+            "input-type": [
+                "image_1",
+                "image_2"
+            ],
+            "output-type": [
+                "change_map"
+            ]
+        },
+        
+        {
+            "id": "Video_anomaly_detection",
+            "desc": "The model checkpoint trained on XD-Violence data is designed for video anomaly detection (WSVAD). This checkpoint enables inference to identify anomalies in video frames, providing anomaly confidence scores at both coarse-grained (general anomaly presence) and fine-grained (specific anomaly category) levels. When using this model for inference, it determines whether frames within a video contain anomalies and categorizes the type of anomaly if applicable. The model is suitable for applications requiring automated video surveillance or content review systems to detect and categorize unusual events efficiently.",
+            "input-type": [
+                "extracted_video_feature"
+            ],
+            "output-type": [
+                "coarse_grained_anomaly_confidence",
+                "fine_grained_anomaly_map"
+            ]
+        },
+        {
+            "id": "Post_Disaster_Mobility_Recovery",
+            "desc": "Its primary function is to predict the recovery process of post-disaster urban population mobility. It specifically models the dynamics of population flows within and between regions (intra-regional and inter-regional flows), helping to capture the interconnected recovery patterns of urban areas after a disaster.This model checkpoint would be used to estimate population mobility trends during the recovery phase, enabling better planning and allocation of resources to facilitate efficient post-disaster recovery.",
+            "input-type": [
+                "initial_abnormal_population_mobility_graph",
+                "normal_population_mobility_graph"
+            ],
+            "output-type": [
+                "predicted_population_mobility_graph"
+            ]
+        },
+        {
+            "id": "Foggy_Scenario_Object_Detection",
+            "desc": "The model checkpoint trained on VOC_Foggy data in the document is designed for object detection under adverse weather conditions, specifically foggy scenarios. It enables the inference system to adaptively enhance input images and mitigate weather-related distortions, such as reduced visibility due to fog, to improve detection performance. The checkpoint incorporates features to handle and restore latent information in degraded images, optimizing detection outcomes in challenging environments.",
+            "input-type": [
+                "image"
+            ],
+            "output-type": [
+                "detected_objects"
+            ]
+        },
+        {
+            "id": "Low-Light_Object_Detection",
+            "desc": "The model checkpoint trained on the VOC_dark data is designed to enhance object detection performance in low-light conditions. During inference, this checkpoint adaptively processes input images to increase brightness and contrast, revealing details essential for accurate detection. It effectively mitigates the challenges posed by low visibility and ensures reliable identification of objects in dark scenarios.",
+            "input-type": [
+                "image"
+            ],
+            "output-type": [
+                "detections"
+            ]
+        },
+        {
+            "id": "Crowd_Counting_in_Adverse_Weather",
+            "desc": "The model checkpoint trained on JHU-Crowd++ is designed for robust crowd counting in various weather conditions, particularly adverse scenarios such as rain, haze, and snow. When you use this model for inference, it estimates the density map and crowd count of an input scene by leveraging weather-aware features learned during training. The model dynamically adapts to different visual degradations in input images, ensuring accurate crowd counting irrespective of weather variations.",
+            "input-type": [
+                "image"
+            ],
+            "output-type": [
+                "density_map",
+                "crowd_count"
+            ]
+        },
+        {
+            "id": "Weather_Degraded_Image_Restoration",
+            "desc": "This checkpoint is suitable for restoring images degraded by various weather conditions, such as rain, snow, haze, or combinations of these conditions. It can be directly used for inference to enhance image clarity and detail under diverse weather-degraded scenarios, making it applicable for tasks like autonomous driving, surveillance, or other computer vision applications requiring high-quality imagery.",
+            "input-type": [
+                "weather_degraded_image"
+            ],
+            "output-type": [
+                "restored_image"
+            ]
+        },
+        {
+            "id": "Geospatial_Object_Segmentation",
+            "desc": "The model checkpoint trained on iSAID data is used for geospatial object segmentation. This involves identifying and distinguishing various geospatial objects in high spatial resolution remote sensing images, such as ships, airplanes, vehicles, and other objects. The model is optimized for pixel-level classification to segment these objects effectively within the imagery, addressing challenges like large-scale variations, complex backgrounds, and imbalances between foreground and background. It is designed to provide accurate segmentation results during inference, with emphasis on enhanced foreground detection and reduced false positives.",
+            "input-type": [
+                "satellite_image",
+                "preprocessing_requirements"
+            ],
+            "output-type": [
+                "segmentation_map",
+                "confidence_scores"
+            ]
+        },
+        {
+            "id": "Precipitation_Nowcasting",
+            "desc": "The Precipitation_Nowcasting model checkpoint is used for precipitation nowcasting. Specifically, when performing inference, the checkpoint enables the prediction of future radar echo sequences based on given initial observations. When using this checkpoint for inference, it will produce predictions of precipitation events with improved positional accuracy and realistic detail by leveraging the interplay between these two components.",
+            "input-type": [
+                "radar_echo_frames"
+            ],
+            "output-type": [
+                "predicted_radar_echo_frames"
+            ]
+        },
+        {
+            "id": "Toponym_Detection",
+            "desc": "The model checkpoint described is fine-tuned specifically for the task of toponym detection. When utilized for inference, it processes input sentences to identify and extract place names (toponyms) mentioned in the text. It is optimized to recognize the names of geographic locations with high accuracy, making it suitable for applications that involve extracting geospatial references from unstructured text data.",
+            "input-type": [
+                "sentence"
+            ],
+            "output-type": [
+                "detected_toponyms"
+            ]
+        },
+        {
+            "id": "Multimodal_mobility_prediction_under_events",
+            "desc": "The model checkpoint  is intended for predicting multimodal mobility patterns under various scenarios, including societal events that deviate mobility behavior from normal patterns. When using this checkpoint for inference, it generates predictions about spatio-temporal demand and supply for multiple transport modes, explicitly accounting for dynamic interactions between different modes and adapting to event-driven volatility. This makes it suitable for applications such as traffic management, demand forecasting, and mobility service optimization during both routine and disruptive events.",
+            "input-type": [
+                "mobility_tensor",
+                "temporal_covariates"
+            ],
+            "output-type": [
+                "predicted_mobility"
+            ]
+        },
+        {
+            "id": "Event_detection",
+            "desc": "The model is a meta-learning framework specifically designed for zero-shot and few-shot event detection. Here's a detailed breakdown of its capabilities: The model can identify event types in scenarios where no labeled examples for the target event types are provided during training. The model is capable of handling tasks with a wide range of event types, making it suitable for domains with diverse events, such as emergency or online trend detection.",
+            "input-type": [
+                "context",
+                "prompt",
+                "trigger"
+            ],
+            "output-type": [
+                "event_type",
+                "trigger_positions",
+                "confidence_scores"
+            ]
+        },
+        {
+            "id": "Flood_depth_prediction",
+            "desc": "The Flood_depth_prediction model Predicts water depths over a region dynamically during flood events, accommodating spatial and temporal variability in rainfall.",
+            "input-type": [
+                "region_topography",
+                "precipitation_data"
+            ],
+            "output-type": [
+                "predicted_water_depths"
+            ]
+        },
+        {
+            "id": "Building_damage_assessment",
+            "desc": "It could do Building Damage Assessment. It classifies building damage into multiple categories (e.g., no damage, minor damage, major damage, destroyed) based on pre- and post-disaster satellite imagery.",
+            "input-type": [
+                "pre_disaster_image",
+                "post_disaster_image",
+                "metadata"
+            ],
+            "output-type": [
+                "damage_classification_map"
+            ]
+        },
+
+        {
+            "id": "GeoChat",
+            "desc": "GeoChat excels in handling high-resolution Remote Sensing(RS) imagery, employing region-level reasoning for comprehensive scene interpretation. Robust zero-shot performance across various RS tasks, including image and region captioning, visual question answering, scene classification, visually grounded conversations, and referring object detection.",
+            "input-type": [
+                "image",
+                "user_query"
+            ],
+            "output-type": [
+                "contextual_description"
+            ]
+        },
+
+        {
+            "id": "perception_data_convert_tool",
+            "desc": "Convert the predicted perception data from A sequence of predicted radar echo frames in 3D array with dimensions [T_out, H, W] (time steps, height, width) to the form of Time-series array with dimensions [T, H, W] (time steps, height, width). So that the perception data could be the correct format of input data to Flood_depth_prediction model",
+            "input-type": [
+                "A sequence of radar echo frames"
+            ],
+            "output-type": [
+                "Time-series array with dimensions [T, H, W] (time steps, height, width)"
+            ]
+        },
+
+        {
+            "id": "depth_speed_model",
+            "desc": "Calculate the traffic speed in each road segment based on the inundation depth of each road segment.",
+            "input-type": [
+                "road_network",
+                "flood_depth"
+            ],
+            "output-type": [
+                "traffic_speed"
+            ]
+        }
+    ],
+
+    "data_nodes": [
+        {
+            "id": "High_resolution_images_before_after_disaster",
+            "format": "RGB image array with dimensions [C, H, W] (channels, height, width)",
+            "description": "Generated high resolution image after disaster at location L based on before disaster low and high resolution image at the same place. This output maintains spatial consistency with the provided high-resolution image at time T and incorporates the temporal information from the low-resolution image at time T'."
+        },
+        {
+            "id": "High resolution image",
+            "format": "RGB or multi-spectral image array with dimensions [C, H, W] (channels, height, width)",
+            "description": "The satellite image and it is a high-resolution image that covers several key informations."
+        },
+        {
+            "id": "high_resolution_image",
+            "format": "RGB image array with dimensions [3, H, W] (channels, height, width)",
+            "description": "The generated high-resolution RGB image reconstructed from the low-resolution multi-spectral input. The output image will have higher spatial resolution (e.g., <1m GSD) and capture fine details, such as edges and textures, while maintaining the contextual integrity of the input image."
+        },
+        {
+            "id": "detected_objects_foggy",
+            "format": "List of detected objects, where each object is represented as a dictionary with keys: { 'label': string, 'bounding_box': [x_min, y_min, x_max, y_max], 'confidence': float }",
+            "description": "The output contains the detected objects in the input image. Each object is labeled with its class name, a bounding box specifying the region in the image where the object is detected, and a confidence score indicating the certainty of the detection."
+        },
+        {
+            "id": "detected_objects_low_light",
+            "format": "List of dictionaries containing bounding box coordinates, class labels, and confidence scores",
+            "description": "The output includes the detected objects in the image. Each detection contains the bounding box coordinates (x_min, y_min, x_max, y_max), the predicted class label (e.g., car, person), and the associated confidence score. These results indicate the locations and types of objects detected in the input image."
+        },
+        {
+            "id": "counted_crowd",
+            "format": "Integer or floating-point number",
+            "description": "The total number of individuals in the scene as estimated from the density map."
+        },
+        {
+            "id": "restored_image",
+            "format": "GB image array with dimensions [H, W, C] (height, width, channels)",
+            "description": "The restored image with weather-related degradations removed. This output is enhanced to appear clearer and suitable for tasks that require high-quality visuals, such as object detection or depth estimation."
+        },
+        {
+            "id": "Low resolution multi spectral image",
+            "format": "Multi-spectral image array with dimensions [C, H, W] (channels, height, width)",
+            "description": "This is the low-resolution satellite image. It includes multiple spectral bands, typically 13 channels for Sentinel-2 inputs. Each channel corresponds to a different spectral band, and the image resolution should match the low-resolution format used during training (e.g., 10m-60m GSD). The input image needs to be pre-processed, including cropping or resizing to expected dimensions (e.g., 256x256 pixels)."
+        },
+        {
+            "id": "Three images same location",
+            "format": "RGB or multi-spectral image array with dimensions [C, H, W] (channels, height, width)",
+            "description": "The generated satellite image based on the provided caption and metadata. The output is a high-resolution image that matches the given contextual information. use Metadata_and_Text_Prompt_Image_Generation three times to generate high and low resolution image at location L before a disaster occured, respectively; then generate low resolution image at the same location after the disaster occured."
+        },
+        {
+            "id": "Temporal_classification_results",
+            "format": "Categorical label or probability vector of dimension [N] (number of classes)",
+            "description": "The model outputs a classification result for the entire temporal sequence. This could either be a single discrete label representing the predicted class or a probability distribution over all possible classes."
+        },
+        {
+            "id": "predicted_category",
+            "format": "Numerical category identifier or class label",
+            "description": "The predicted category of the input image, representing one of the pre-defined classes the model was trained on. These categories correspond to specific real-world objects or features present in the satellite image, such as buildings, infrastructure, or land use types."
+        },
+        {
+            "id": "reconstructed_image",
+            "format": "Multi-spectral image array with dimensions [C, H, W] (channels, height, width)",
+            "description": "The output is a reconstructed version of the input satellite image where the masked regions have been in-painted using the context from visible regions. The output retains the same spectral and spatial format as the input and provides complete image information across all 10 spectral bands."
+        },
+        {
+            "id": "feature_representation",
+            "format": "Numerical array of dimension [N] (latent feature vector)",
+            "description": "An optional output representing the extracted high-level features of the input image in a latent space. This representation can be used for downstream tasks such as classification or segmentation."
+        },
+        {
+            "id": "anomaly_map_forest",
+            "format": "2D array with dimensions [H, W] (height, width)",
+            "description": "The output anomaly map highlights areas that deviate from the typical forest pattern. Each pixel value ranges from 0 to 1, where higher values indicate a higher likelihood of an anomaly such as diseased trees, buildings, vehicles, or water bodies."
+        },
+        {
+            "id": "landslide_map",
+            "format": "Grayscale image array with dimensions [H, W] (height, width)",
+            "description": "The output anomaly map indicates areas of potential landslides. Each pixel has a value in the range [0, 1], where higher values represent a higher degree of anomaly."
+        },
+        {
+            "id": "anomaly_map_urban",
+            "format": "2D array with dimensions [H, W] (height, width)",
+            "description": "The output is an anomaly map where each pixel has a value in the range [0,1]. Higher values indicate a higher likelihood of anomaly in that pixel taking urban scenario as the normal scenario."
+        },
+        
+        {
+            "id": "Change_map",
+            "format": "Binary image array with dimensions [H, W] (height, width)",
+            "description": "The output is a binary change map that indicates regions of change between Image 1 and Image 2. A value of 1 represents changed areas, and a value of 0 represents unchanged areas. Whie area is the detected chaned area. The change map spatially corresponds to the input images, highlighting differences such as new constructions or other significant modifications."
+        },
+        {
+            "id": "coarse_grained_anomaly_confidence",
+            "format": "Array with dimensions [N] (anomaly confidence scores for each frame)",
+            "description": "An array where each element represents the anomaly confidence score for the corresponding frame, indicating the likelihood of an anomaly being present."
+        },
+        {
+            "id": "fine_grained_anomaly_map",
+            "format": "Matrix with dimensions [N, M] (frame-level anomaly class alignment scores)",
+            "description": "A matrix where each row corresponds to a frame and each column corresponds to an anomaly class from the input text labels. Each element indicates the alignment score between the frame and the anomaly class, facilitating fine-grained anomaly categorization."
+        },
+        {
+            "id": "predicted_population_mobility_graph",
+            "format": "Graph object with updated nodes and edges, where nodes represent predicted intra-regional population flows, and edges represent predicted inter-regional population flows",
+            "description": "The output graph provides the predicted population mobility for subsequent time steps during the recovery process. Node features indicate the predicted number of people moving within each region, and edge features indicate the predicted number of people moving between regions. This data helps in understanding and planning post-disaster recovery efforts."
+        },
+        {
+            "id": "detected_objects",
+            "format": "List of detected objects, where each object is represented as a dictionary with keys: { 'label': string, 'bounding_box': [x_min, y_min, x_max, y_max], 'confidence': float }",
+            "description": "The output contains the detected objects in the input image. Each object is labeled with its class name, a bounding box specifying the region in the image where the object is detected, and a confidence score indicating the certainty of the detection."
+        },
+        {
+            "id": "detections",
+            "format": "List of dictionaries containing bounding box coordinates, class labels, and confidence scores",
+            "description": "The output includes the detected objects in the image. Each detection contains the bounding box coordinates (x_min, y_min, x_max, y_max), the predicted class label (e.g., car, person), and the associated confidence score. These results indicate the locations and types of objects detected in the input image."
+        },
+        {
+            "id": "density_map",
+            "format": "Grayscale image array with dimensions [H, W] (height, width)",
+            "description": "The generated density map represents the crowd density at each pixel of the input image. Each pixel value indicates the density of individuals in that specific area."
+        },
+        {
+            "id": "crowd_count",
+            "format": "Integer or floating-point number",
+            "description": "The total number of individuals in the scene as estimated from the density map."
+        },
+        {
+            "id": "restored_image",
+            "format": "RGB image array with dimensions [H, W, C] (height, width, channels)",
+            "description": "The restored image with weather-related degradations removed. This output is enhanced to appear clearer and suitable for tasks that require high-quality visuals, such as object detection or depth estimation."
+        },
+        {
+            "id": "Segmentation_map",
+            "format": "2D array with dimensions [H, W] (height, width)",
+            "description": "The output is a semantic segmentation map where each pixel is assigned a class label representing a geospatial object type (e.g., ship, plane, vehicle, building). The class labels correspond to predefined categories that the model was trained to recognize."
+        },
+        {
+            "id": "confidence_scores",
+            "format": "2D array with dimensions [H, W] (height, width)",
+            "description": "This array provides confidence scores for the predicted class labels at each pixel. Higher values indicate greater confidence in the prediction."
+        },
+        {
+            "id": "predicted_radar_echo_frames",
+            "format": "3D array with dimensions [T_out, H, W] (time steps, height, width)",
+            "description": "A sequence of predicted radar echo frames representing the future evolution of precipitation. Each frame is a 2D spatial map (H x W) of radar reflectivity values, predicting precipitation intensity for each time step in the forecast period. The sequence length (T_out) is the number of forecasted frames, typically up to 20 frames for 100 minutes of predictions. The output frames maintain the same resolution and spatial dimensions as the input frames."
+        },
+        {
+            "id": "detected_toponyms",
+            "format": "List of dictionaries, where each dictionary contains details of a detected toponym",
+            "description": "Each detected toponym includes the following fields: 'toponym' (the detected place name as a string), 'start_index' (integer indicating the starting character position in the input sentence), 'end_index' (integer indicating the ending character position in the input sentence), and optionally, 'confidence_score' (a float value indicating the model's confidence in the detection)."
+        },
+        {
+            "id": "predicted_mobility",
+            "format": "3D numerical tensor with dimensions [\u03b2, N, C] (forecast steps, spatial regions, mobility modes)",
+            "description": "This tensor contains the predicted multimodal mobility data for the next \u03b2 time steps (\u03b2 = 8). Each forecasted time step includes data for the same spatial regions and transport modes as in the input. Predictions reflect spatio-temporal dependencies and event-aware adjustments."
+        },
+        {
+            "id": "event_type",
+            "format": "String representing the predicted event type",
+            "description": "The classification of the event based on the provided context. This could be a label such as 'Conflict: Demonstration' or 'Life: Die'."
+        },
+        {
+            "id": "trigger_positions",
+            "format": "Array of integers indicating the positions of detected trigger tokens in the input context",
+            "description": "The positions of the tokens identified as triggers for the event in the input context. These help in understanding which parts of the input contributed to the event detection."
+        },
+        {
+            "id": "confidence_scores",
+            "format": "Float value between 0 and 1",
+            "description": "The model's confidence in the predicted event type. Higher values indicate greater confidence in the classification."
+        },
+        {
+            "id": "predicted_water_depths",
+            "format": "Time-series array with dimensions [T, H, W] (time steps, height, width)",
+            "description": "The model outputs water depth predictions for each pixel in the region over the simulation period. Each time step contains a 2D array where each pixel represents the water depth at that location."
+        },
+        {
+            "id": "Damage_classification_map",
+            "format": "2D array with dimensions [H, W] (height, width), where each pixel has an integer value representing damage classes.",
+            "description": "The output map contains pixel-wise classification of damage levels. Values typically represent the following classes: 0 (background), 1 (no damage), 2 (minor damage), 3 (major damage), 4 (destroyed)."
+        },
+
+        {
+            "id": "contextual_description",
+            "format": "In natural language format",
+            "description": "The natural language description of something."
+        },
+
+        {
+            "id": "predicted_perception",
+            "format": "3D array with dimensions [T_out, H, W] (time steps, height, width)",
+            "description": "A sequence of predicted radar echo frames representing the future evolution of precipitation. Each frame is a 2D spatial map (H x W) of radar reflectivity values, predicting precipitation intensity for each time step in the forecast period. The sequence length (T_out) is the number of forecasted frames, typically up to 20 frames for 100 minutes of predictions. The output frames maintain the same resolution and spatial dimensions as the input frames."
+        },
+
+        {
+            "id": "converted_precipitation_data",
+            "format": "Time-series array with dimensions [T, H, W] (time steps, height, width)",
+            "description": "This data represents spatially distributed precipitation over time. Each time step contains a 2D array where each pixel corresponds to the amount of rainfall at a specific location during that time. The data should be log-transformed and normalized as per the training data."
+        },
+
+        {
+            "id": "predicted_water_depths",
+            "format": "Time-series array with dimensions [T, H, W] (time steps, height, width)",
+            "description": "The model outputs water depth predictions for each pixel in the region over the simulation period. Each time step contains a 2D array where each pixel represents the water depth at that location."
+        },
+
+        {
+            "id": "traffic_speed",
+            "format": "",
+            "description": "Traffic speed in each road segment."
+        }
+    ],
+
+    "links_type1": [
+        {
+            "source": "Metadata_and_Text_Prompt_Image_Generation",
+            "target": "Three images same location",
+            "requirenment": "use Metadata_and_Text_Prompt_Image_Generation three times to generate high and low resolution image at location L before a disaster occured, respectively; then generate low resolution image at the same location after the disaster occured.", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Three images same location",
+            "target": "Temporal_High_Resolution_Image_Generation",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Temporal_High_Resolution_Image_Generation",
+            "target": "High_resolution_images_before_after_disaster",
+            "requirenment": "Generated high resolution image after disaster at location L based on before disaster low and high resolution image at the same place",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Anomaly_Detection_Forest",
+            "requirenment": "The input two high resolution images should be related to forest scenario. The disaster type could be forest fire or any other types of disaster which could happens in forest.",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Anomaly_Detection_Forest",
+            "target": "anomaly_map_forest",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "anomaly_map_forest",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Landslide_Segmentation",
+            "requirenment": "The input two high resolution images should be related to landslides.",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Landslide_Segmentation",
+            "target": "landslide_map",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "landslide_map",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Urban_Anomaly_Detection",
+            "requirenment": "The input two high resolution images should be related to urban scenario. The disaster type could any types of disaster which could happens in urban area.",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Urban_Anomaly_Detection",
+            "target": "anomaly_map_urban",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "anomaly_map_urban",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Change_Mapping_and_Detection",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Building_damage_assessment",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Temporal_Image_Sequence_Classifier",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "Geospatial_Object_Segmentation",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Geospatial_Object_Segmentation",
+            "target": "Segmentation_map",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Segmentation_map",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High_resolution_images_before_after_disaster",
+            "target": "RGB_GeoImage_Classifier",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "RGB_GeoImage_Classifier",
+            "target": "predicted_category",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "predicted_category",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": ["predicted_category", "Segmentation_map"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+
+        {
+            "source": "Change_Mapping_and_Detection",
+            "target": "Change_map",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+        
+        {
+            "source": "Change_map",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "GeoChat",
+            "target": "contextual_description",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Building_damage_assessment",
+            "target": "Damage_classification_map",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+        
+        {
+            "source": "Damage_classification_map",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Temporal_Image_Sequence_Classifier",
+            "target": "Temporal_classification_results",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Temporal_classification_results",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "GeoChat",
+            "target": "contextual_description",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": ["Change_map", "Damage_classification_map"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": ["Damage_classification_map", "Temporal_classification_results"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": ["Damage_classification_map", "Temporal_classification_results", "Change_map"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        }
+
+    ],
+
+    "links_type2": [
+        {
+            "source": "Metadata_and_Text_Prompt_Image_Generation",
+            "target": "Low resolution multi spectral image",
+            "requirenment": "use Metadata_and_Text_Prompt_Image_Generation model to generate low resolution multi spectral image.", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Low resolution multi spectral image",
+            "target": "High-Resolution_Image_Reconstructor",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High-Resolution_Image_Reconstructor",
+            "target": "High resolution image",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Geospatial_Object_Segmentation",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Geospatial_Object_Segmentation", 
+            "target": "Segmentation_map",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Segmentation_map",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Multi_Spectral_Classifier",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Multi_Spectral_Classifier",
+            "target": "Image_classification_category",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "Image_classification_category",
+            "target": "GeoChat",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Anomaly_Detection_Forest",
+            "requirenment": "The high resolution image is in forest scenario and related to some disasters which would happend in forest, such as widfire etc.", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Anomaly_Detection_Forest",
+            "target": "anomaly_map_forest",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "anomaly_map_forest",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Landslide_Segmentation",
+            "requirenment": "The high resolution image is related to landslide scenario.", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Landslide_Segmentation",
+            "target": "landslide_map",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "landslide_map",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+        
+        {
+            "source": "High resolution image",
+            "target": "Urban_Anomaly_Detection",
+            "requirenment": "The high resolution image is related in urban scenario and it should be related to disaster events in urban area.", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Urban_Anomaly_Detection",
+            "target": "anomaly_map_urban",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "anomaly_map_urban",
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "GeoChat",
+            "target": "contextual_description",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": ["anomaly_map_urban", "landslide_map"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": ["landslide_map", "anomaly_map_forest"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": ["landslide_map", "anomaly_map_urban"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        },
+
+        {
+            "source": ["landslide_map", "anomaly_map_urban", "anomaly_map_forest"],
+            "target": "GeoChat",
+            "requirenment": "",
+            "type": "data_to_model"
+        }
+
+    ],
+
+    "links_type3": [
+        {
+            "source": "Metadata_and_Text_Prompt_Image_Generation",
+            "target": "High resolution image",
+            "requirenment": "use Metadata_and_Text_Prompt_Image_Generation model to generate high resolution image.", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Foggy_Scenario_Object_Detection",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Foggy_Scenario_Object_Detection",
+            "target": "detected_objects_foggy",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "detected_objects_foggy",
+            "target": "GeoChat",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "GeoChat",
+            "target": "contextual_description",
+            "requirenment": "",
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Low-Light_Object_Detection",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+        
+        {
+            "source": "Low-Light_Object_Detection",
+            "target": "detected_objects_low_light",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Crowd_Counting_in_Adverse_Weather",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Crowd_Counting_in_Adverse_Weather",
+            "target": "counted_crowd",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "High resolution image",
+            "target": "Weather_Degraded_Image_Restoration",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Weather_Degraded_Image_Restoration",
+            "target": "restored_image",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+        
+        {
+            "source": "restored_image",
+            "target": "Foggy_Scenario_Object_Detection",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Foggy_Scenario_Object_Detection",
+            "target": "detected_objects_foggy",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "detected_objects",
+            "target": "GeoChat",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+        
+        {
+            "source": "restored_image",
+            "target": "Low-Light_Object_Detection",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+        
+        {
+            "source": "Low-Light_Object_Detection",
+            "target": "detected_objects_low_light",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "restored_image",
+            "target": "Crowd_Counting_in_Adverse_Weather",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Crowd_Counting_in_Adverse_Weather",
+            "target": "counted_crowd",
+            "requirenment": "", 
+            "type": "model_to_data"
+        }
+    ],
+
+    "links_type4": [
+        {
+            "source": "Precipitation_Nowcasting", 
+            "target": "predicted_perception",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "predicted_perception",
+            "target": "perception_data_convert_tool",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "perception_data_convert_tool",
+            "target": "converted_precipitation_data",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "converted_precipitation_data",
+            "target": "Flood_depth_prediction",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "Flood_depth_prediction",
+            "target": "predicted_water_depths",
+            "requirenment": "", 
+            "type": "model_to_data"
+        },
+
+        {
+            "source": "predicted_water_depths",
+            "target": "depth_speed_model",
+            "requirenment": "", 
+            "type": "data_to_model"
+        },
+
+        {
+            "source": "depth_speed_model",
+            "target": "traffic_speed",
+            "requirenment": "", 
+            "type": "model_to_data"
+        }
+    ]
+}
