@@ -1,194 +1,113 @@
-# DisasterBench
+# 🧠 DisasterBench: Benchmarking LLM Planning in Disaster-Response Multi-Agent Systems
 
-A benchmark for evaluating LLM structured workflow planning in disaster-management scenarios.
+**DisasterBench** is a benchmark for evaluating whether LLMs can generate **executable structured workflows** in disaster-management scenarios.
 
-DisasterBench studies whether LLMs can generate executable multi-step plans over typed disaster-response agents with correct:
+Unlike conventional tool-use benchmarks, DisasterBench focuses on **workflow grounding under typed interface constraints**:
+models must compose semantically similar but operationally distinct agents into valid multi-step plans with correct:
 
 - agent selection
 - parameter grounding
 - dependency propagation
 
-The benchmark contains:
-
-- 233 expert-verified planning tasks
-- 26 task-interface agents
-- 81 typed compatibility edges
-- 5 planning paradigms
-- Fine-grained workflow diagnostics (FPoF)
-  
-<p align="center">
-  <img src="assets/DisasterBench_pipeline.png" width="95%">
-</p>
-
-## Overview
-
-DisasterBench contains:
+DisasterBench provides:
 
 - **233 expert-verified planning tasks**
 - **26 task-interface agents**
-- **13 functional categories**
 - **81 typed compatibility edges**
-- **4 semantic workflow subgraphs**
-- **5 planning paradigms**: DP, CoT, ToT, RAP, and ReAct
-
-The benchmark evaluates more than tool retrieval. Since agents are constrained by typed input/output interfaces, models must generate workflows that remain executable across the entire planning trajectory.
-
-DisasterBench supports fine-grained evaluation through:
-
-- Exact structured-plan match
-- Tool selection accuracy
-- Parameter grounding accuracy
-- Dependency correctness
-- First-Point-of-Failure (FPoF) diagnosis
+- **5 planning paradigms** (DP, CoT, ToT, RAP, ReAct)
+- Fine-grained workflow diagnostics through **First-Point-of-Failure (FPoF)** analysis
 
 ---
 
-# Benchmark Pipeline
+## 🌍 Motivation
 
-DisasterBench follows a four-stage benchmark construction and evaluation pipeline.
+Disaster-response systems increasingly rely on heterogeneous AI capabilities such as:
 
-## 1. Problem Framing
+- remote sensing
+- change detection
+- hydrological forecasting
+- image restoration
+- mobility prediction
+- multimodal event understanding
 
-We begin with realistic disaster-management scenarios such as:
+As LLMs emerge as orchestrators of such systems, a key challenge arises:
 
-- Flood response
-- Wildfire monitoring
-- Hurricane impact assessment
-- Urban damage analysis
+> Can LLMs reliably compose specialized agents into executable workflows under interface compatibility constraints?
 
-Users provide high-level natural-language objectives rather than explicit workflows.
+While existing benchmarks primarily evaluate tool selection or API invocation, real-world disaster workflows require preserving execution consistency across multiple dependent steps.
 
-Example:
-
-> “Estimate flood inundation depth in socially vulnerable areas under heavy rainfall conditions.”
-
-The planner must determine:
-
-- Which agents should be used
-- In what order they should be composed
-- Whether intermediate outputs remain type-compatible
+DisasterBench addresses this challenge through typed workflow planning tasks with executable ground-truth structured plans.
 
 ---
 
-## 2. Agent Pool & Compatibility Constraints
+## 📚 Key Features
 
-DisasterBench contains 26 specialized disaster-response agents spanning multiple functional domains:
+- **Typed Workflow Planning**  
+  Agents are constrained by input/output interface compatibility rather than free-form composition.
 
-- Remote sensing
-- Change detection
-- Image reconstruction
-- Adverse-weather perception
-- Hydrological forecasting
-- Mobility and traffic analysis
-- Damage assessment
-- Multimodal event understanding
+- **Executable Structured Plans**  
+  Ground-truth workflows include agents, parameters, and dependency structures.
 
-Agents are represented as typed interface schemas rather than executable checkpoints.
+- **Multi-Paradigm Planning Evaluation**  
+  Supports Direct Planning, CoT, ToT, RAP (MCTS), and ReAct.
 
-Each agent defines:
+- **Fine-Grained Failure Diagnosis**  
+  FPoF localizes the earliest structural failure in generated workflows.
 
-- Input modalities
-- Output modalities
-- Parameter specifications
-- Dependency requirements
-
-Valid compositions are encoded through a typed compatibility graph.
-
-Example of a valid composition:
-
-```text
-Change Detection
-    → Damage Assessment
-        → Building Extraction
-```
-
-Example of an invalid composition:
-
-```text
-Rainfall Nowcasting
-    → Change Detection
-```
-
-because:
-
-```text
-Rainfall Nowcasting outputs: json_array
-Change Detection requires: raster image
-```
-
-All workflows in DisasterBench must satisfy interface-level compatibility constraints.
+- **Disaster-Response Agent Ecosystem**  
+  Covers realistic disaster-management pipelines across sensing, forecasting, restoration, and analysis.
 
 ---
 
-## 3. Task Generation & Verification
+## 🧩 Benchmark Pipeline
 
-Tasks are generated through typed path sampling over the compatibility graph.
+<p align="center">
+<img src="assets/DisasterBench_pipeline.png" alt="DisasterBench Pipeline" width="92%"/>
+</p>
 
-Three workflow structures are included:
-
-- Node
-- Chain
-- DAG / branching workflows
-
-Each sampled workflow is converted into a natural-language planning task and paired with a ground-truth structured plan.
-
-All tasks are manually verified for:
-
-- Dependency correctness
-- Parameter grounding
-- Task validity
-- Workflow executability
-
-The final benchmark contains:
-
-- **233 verified planning tasks**
-- Multi-step workflows with depths ranging from 1–9
-- Structured DAG plans with typed dependencies
+*Figure: Overview of the DisasterBench construction and evaluation pipeline. The benchmark integrates typed agent composition, workflow verification, structured planning, and fine-grained execution evaluation.*
 
 ---
 
-## 4. Planning & Evaluation
+## ⚙️ Benchmark Overview
 
-LLMs generate structured plans in JSON format under five planning paradigms:
+DisasterBench contains:
 
-| Method | Description |
+| Component | Statistics |
 |---|---|
-| DP | Direct Planning |
-| CoT | Chain-of-Thought |
-| ToT | Tree-of-Thought |
-| RAP | Monte-Carlo Tree Search planning |
-| ReAct | Interleaved reasoning and acting |
-
-Generated workflows are evaluated using fine-grained metrics.
-
-| Metric | Meaning |
-|---|---|
-| **Overall** | Exact structured-plan match |
-| **Tools** | Correct tool selection |
-| **Parameters** | Correct parameter grounding |
-| **Dependencies** | Correct dependency structure |
-| **FPoF** | Earliest workflow failure category |
-
-FPoF (First-Point-of-Failure) localizes the earliest structural error in a generated workflow, enabling diagnosis of:
-
-- Tool selection failures
-- Parameter grounding failures
-- Dependency propagation failures
-- Early planning termination
+| Planning Tasks | 233 |
+| Task-Interface Agents | 26 |
+| Functional Categories | 13 |
+| Compatibility Edges | 81 |
+| Workflow Structures | Node / Chain / DAG |
+| Planning Paradigms | 5 |
+| Evaluation Metrics | 5 |
 
 ---
 
-# Quick Start
+## 🚀 Quick Start
 
-Install dependencies:
+### 1️⃣ Installation
 
 ```bash
+git clone https://github.com/your_repo/DisasterBench.git
+cd DisasterBench
+
 pip install -r requirements.txt
 export PYTHONPATH=.
-export OPENROUTER_API_KEY=...   # or OPENAI_API_KEY
 ```
 
-Run Chain-of-Thought planning:
+Set API key:
+
+```bash
+export OPENROUTER_API_KEY=...
+# or
+export OPENAI_API_KEY=...
+```
+
+---
+
+### 2️⃣ Run Chain-of-Thought Planning
 
 ```bash
 python3 baselines/test_baseline.py \
@@ -213,16 +132,9 @@ Outputs are saved to:
 results/<model>/<method>/
 ```
 
-including:
-
-```text
-*_result.txt
-*_detailed_predictions.json
-```
-
 ---
 
-# Supported Planning Methods
+## 🧠 Supported Planning Paradigms
 
 | Method | Flag |
 |---|---|
@@ -234,7 +146,7 @@ including:
 
 ---
 
-# Structural Baselines (No LLM)
+## 🏗️ Structural Baselines (No LLM)
 
 Run graph-based structural baselines:
 
@@ -243,7 +155,7 @@ PYTHONPATH=. python3 scripts/run_structural_baselines.py \
   --baseline shortest_path
 ```
 
-Additional supported baselines:
+Additional baselines:
 
 - `oracle_random`
 - `dag_greedy_tfidf`
@@ -251,95 +163,39 @@ Additional supported baselines:
 
 ---
 
-# Repository Structure
+## 📂 Repository Structure
 
 ```text
 DisasterBench/
 ├── assets/
-│   └── DisasterBench_pipeline.png
-├── data/
-│   └── benchmark.jsonl
-├── interfaces/tools/
-│   ├── tools_manifest.json
-│   └── graph_desc.json
-├── evaluators/
-│   └── evaluators.py
 ├── baselines/
-├── scripts/
-│   ├── run_structural_baselines.py
-│   └── compute_structure_complexity.py
+├── config/
+├── data/
 ├── docs/
-│   └── RESULTS_STRUCTURE_COMPLEXITY.md
-└── config/
-    └── args.py
+├── evaluators/
+├── interfaces/
+├── scripts/
+├── utils/
+├── README.md
+├── requirements.txt
+└── LICENSE
 ```
 
 ---
 
-# Dataset Format
+## 📊 Evaluation Metrics
 
-Each JSONL row contains:
-
-```json
-{
-  "task_id": "...",
-  "task_desc": "...",
-  "structured_plan": {...}
-}
-```
-
-where:
-
-- `task_id` — unique task identifier
-- `task_desc` — natural-language planning request
-- `structured_plan` — executable DAG workflow with agents, parameters, and dependencies
-
-Reproduce structural statistics:
-
-```bash
-python3 scripts/compute_structure_complexity.py \
-  --data data/benchmark.jsonl
-```
+| Metric | Meaning |
+|---|---|
+| **Overall** | Exact structured-plan match |
+| **Tools** | Correct tool selection |
+| **Parameters** | Correct parameter grounding |
+| **Dependencies** | Correct dependency structure |
+| **FPoF** | Earliest workflow failure category |
 
 ---
 
-# Agents
-
-Agents are represented as typed interface schemas rather than executable checkpoints.
-
-Agent definitions:
-
-```text
-interfaces/tools/tools_manifest.json
-```
-
-Compatibility constraints:
-
-```text
-interfaces/tools/graph_desc.json
-```
-
----
-
-# Supported APIs
-
-## OpenAI
-
-```bash
---api openai --model_ckpt gpt-4o-mini
-```
-
-## OpenRouter
-
-```bash
---api openrouter --model_ckpt deepseek/deepseek-v3.2
-```
-
-Current release supports OpenAI-compatible and OpenRouter-compatible APIs.
-
----
-
-# Citation
+## 📜 Citation
 
 ```bibtex
 @misc{disasterbench2026,
@@ -350,6 +206,6 @@ Current release supports OpenAI-compatible and OpenRouter-compatible APIs.
 
 ---
 
-# License
+## 📄 License
 
-Released under the MIT License.**
+Released under the MIT License.
