@@ -1,9 +1,21 @@
-**# DisasterBench
+# DisasterBench
 
-DisasterBench is a benchmark for evaluating **executable workflow grounding** in disaster-response multi-agent systems. It tests whether LLMs can generate structured, executable plans over semantically similar but operationally distinct disaster-response agents.
+A benchmark for evaluating LLM structured workflow planning in disaster-management scenarios.
 
-DisasterBench focuses on a realistic orchestration setting: given a natural-language disaster-management request, an LLM must compose typed agents into a valid multi-step workflow with correct agent selection, parameter binding, and dependency propagation.
+DisasterBench studies whether LLMs can generate executable multi-step plans over typed disaster-response agents with correct:
 
+- agent selection
+- parameter grounding
+- dependency propagation
+
+The benchmark contains:
+
+- 233 expert-verified planning tasks
+- 26 task-interface agents
+- 81 typed compatibility edges
+- 5 planning paradigms
+- Fine-grained workflow diagnostics (FPoF)
+  
 <p align="center">
   <img src="assets/DisasterBench_pipeline.png" width="95%">
 </p>
