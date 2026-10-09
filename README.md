@@ -216,6 +216,20 @@ This work was developed through collaborations across AI, disaster resilience, a
 
 ---
 
+## Third-Party Code Attribution
+
+Portions of the evaluation utilities in this repository are adapted from the open-source [rStar](https://github.com/microsoft/rStar) project, originally released under the MIT License.
+
+We acknowledge the rStar authors for their contributions. The applicable original copyright notices and license terms are preserved in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+The remaining original components of DisasterBench are released under the repository's MIT License.
+
+
+
+
+
+
+
 ## 📄 License
 
 Released under the MIT License.
