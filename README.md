@@ -232,4 +232,7 @@ The remaining original components of DisasterBench are released under the reposi
 
 ## 📄 License
 
-Released under the MIT License.
+
+Original DisasterBench code is released under the MIT License.
+Third-party components retain their respective copyright and
+license notices. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
