@@ -197,37 +197,40 @@ DisasterBench/
 
 ## 📜 Citation
 
+If you find DisasterBench useful in your research, please consider citing our paper:
+
 ```bibtex
-@misc{chen2026disasterbench,
-  title={DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints},
-  author={Chen, Zhitong and Yin, Kai and Zhang, Weifeng and Wang, Zhiyuan and Dong, Xiangjue and Liu, Chengkai and Liu, Zhewei and Xiao, Yiming and Mostafavi, Ali and Caverlee, James},
-  year={2026}
+@inproceedings{chen2026disasterbench,
+  title     = {DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints},
+  author    = {Chen, Zhitong and Yin, Kai and Zhang, Weifeng and Wang, Zhiyuan and Dong, Xiangjue and Liu, Chengkai and Liu, Zhewei and Xiao, Yiming and Mostafavi, Ali and Caverlee, James},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2026},
+  year      = {2026}
 }
 ```
 
 ---
+
 ## 🤗 Hugging Face Dataset
 
-https://huggingface.co/datasets/tamuzc/DisasterBench
+The DisasterBench dataset is publicly available on Hugging Face:
 
-## 🙌 Acknowledgments
-
-This work was developed through collaborations across AI, disaster resilience, and information retrieval research communities.
+**[DisasterBench Dataset](https://huggingface.co/datasets/tamuzc/DisasterBench)**
 
 ---
 
-## Third-Party Code Attribution
+## 🙌 Acknowledgments
 
-Portions of the evaluation utilities in this repository are adapted from the open-source [rStar](https://github.com/microsoft/rStar) project, originally released under the MIT License.
+We thank our collaborators and the research communities in artificial intelligence, disaster resilience, and information retrieval for their valuable contributions to this work.
 
-We acknowledge the rStar authors for their contributions. The applicable original copyright notices and license terms are preserved in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+---
 
-The remaining original components of DisasterBench are released under the repository's MIT License.
+## ⚖️ Third-Party Code Attribution
 
+Portions of the evaluation utilities in this repository are adapted from [rStar](https://github.com/microsoft/rStar), an open-source project released under the MIT License.
 
+We acknowledge the original rStar authors and maintain the applicable copyright notices and license terms in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-
-
+All remaining original components of DisasterBench are released under the MIT License, as specified in this repository's license file.
 
 
 ## 📄 License
