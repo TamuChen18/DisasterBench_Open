@@ -193,7 +193,19 @@ DisasterBench/
 | **Dependencies** | Correct dependency structure |
 | **FPoF** | Earliest workflow failure category |
 
+
+## 👥 Authors & Maintainers
+
+**Authors:** Zhitong Chen, Kai Yin, Weifeng Zhang, Zhiyuan Wang, Xiangjue Dong, Chengkai Liu, Zhewei Liu, Yiming Xiao, Ali Mostafavi, and James Caverlee.
+
+**Repository Maintainer:** Zhitong Chen
+
+For questions regarding the dataset, evaluation framework, or repository, please open a GitHub issue.
+
 ---
+
+
+
 
 ## 📜 Citation
 
